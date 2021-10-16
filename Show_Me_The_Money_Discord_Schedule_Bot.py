@@ -174,7 +174,7 @@ async def on_message(message):
                 bs='arv_nor_1_2'
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
 
-
+            print(bs)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
 
@@ -186,7 +186,7 @@ async def on_message(message):
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
-            if ms in '발탄' or ms in '발':
+            if '발탄' in ms or '발' in ms:
                 if '노말' in ms or '노' in ms:
                     bs="bal_nor"
                     embed = discord.Embed(title = ' `🐃 발탄 노말 🐃` ' ,color = 0xFF0000)
