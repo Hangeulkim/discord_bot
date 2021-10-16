@@ -274,7 +274,9 @@ async def on_message(message):
             a=curs.fetchone()[0]
             if a == 1:
                 query = 'SELECT {} FROM `NOW` WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
-                num = int(curs.fetchone()[0])-num
+                every_num = curs.fetchone()
+                print(every_num)
+                num = int(every_num)-num
                 if num < 0:
                     num = 0
                 query='UPDATE `NOW` SET {}= ? WHERE AUTHOR = ?'.format(bs)
