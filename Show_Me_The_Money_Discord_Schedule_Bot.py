@@ -33,7 +33,7 @@ data_db = pymysql.connect(
 async def on_ready():
     curs = data_db.cursor()
 
-    curs.execute('CREATE TABLE IF NOT EXISTS NOW (author text, bal_nor integer default 0, bal_hard integer default 0,\
+    curs.execute('CREATE TABLE IF NOT EXISTS NOW_RADE (author text, bal_nor integer default 0, bal_hard integer default 0,\
     bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
         arv_nor_1_2 integer default 0)')
 
@@ -48,14 +48,14 @@ async def on_ready():
 @tasks.loop(hours=1.0)
 async def chk_date():
     ch = bot.get_channel(898561134783787028)
-    now = dt.datetime.now()
-    if now.weekday() == 2 and now.hour < 10 and now.hour > 6:
+    NOW_RADE = dt.datetime.NOW_RADE()
+    if NOW_RADE.weekday() == 2 and NOW_RADE.hour < 10 and NOW_RADE.hour > 6:
         curs = data_db.cursor()
-        curs.execute('Create Tabel NOW LIKE WED')
+        curs.execute('Create Tabel NOW_RADE LIKE WED')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
-            if ms == '발탄' or ms == '발':
+            if ms in '발탄' or ms in '발':
                 if '노말' in ms or '노' in ms:
                     bs="bal_nor"
                     embed = discord.Embed(title = ' `🐃 발탄 노말 🐃` ' ,color = 0xFF0000)
@@ -66,7 +66,7 @@ async def chk_date():
                     embed = discord.Embed(title = ' `🐃 발탄 하드 🐃` ' ,color = 0xFF0000)
 
 
-            elif ms == '비아키스' or ms == '비아' or ms == '비':
+            elif  '비아키스' in ms or '비아' in ms or '비' in ms:
                 if '노말' in ms or '노' in ms:
                     bs='bia_nor'
                     embed = discord.Embed(title =' ` 💃 비아 노말 💃 ` ',color = 0xFF0000)
@@ -77,19 +77,18 @@ async def chk_date():
                     embed = discord.Embed(title =' ` 💃 비아 하드 💃 ` ',color = 0xFF0000)
 
 
-            elif ms == '쿠크':
+            elif '쿠크' in ms:
                 bs='cook_nor'
                 embed = discord.Embed(title =' ` 🎲 쿠크 노말 🎲 ` ',color = 0xFF0000)
 
 
-            elif ms == '아르고스' or ms == '알고':
+            elif '아르고스' in ms or '알고' in ms:
                 bs='argo'
                 embed = discord.Embed(title =' ` 🐐 아르고스 🐐 ` ',color = 0xFF0000)
 
-            elif ms == '아브렐슈드' or ms == '아브':
+            elif '아브렐슈드' in ms or '아브' in ms:
                 bs='arv_nor_1_2'
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
-                
 
             query='SELECT AUTHOR, {} FROM WED WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
@@ -126,10 +125,12 @@ async def on_message(message):
     if message.content == '~한남재훈':
         curs=data_db.cursor()
         
-        curs.execute('DROP TABLE `NOW`')
+        curs.execute('DROP TABLE `NOW_RADE`')
         curs.execute('DROP TABLE `WED`')
+        curs.execute('DROP TABLE `INIT`')
 
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
+        bs=""
         for ms in mes:
             if ms in '발탄' or ms in '발':
                 if '노말' in ms or '노' in ms:
@@ -174,7 +175,7 @@ async def on_message(message):
     
     if message.content == '~초기화':
         curs=data_db.cursor()
-        curs.execute('Create Tabel NOW LIKE WED')
+        curs.execute('Create Table `NOW_RADE` LIKE `WED`')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
@@ -269,26 +270,26 @@ async def on_message(message):
                 num = 1
 
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
 
             a=curs.fetchone()[0]
             if a == 1:
-                query = 'SELECT {} FROM `NOW` WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
+                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
                 curs.execute(query)
                 every_num = curs.fetchone()[0]
                 print(every_num)
                 num = int(every_num)-num
                 if num < 0:
                     num = 0
-                query='UPDATE `NOW` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(message.author))
+                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(message.author))
                 curs.execute(query)
             else:
                 await message.channel.send(f'{message.author.mention}님 완료하실 캐릭터가 없습니다!')
                 return
 
 
-            query='SELECT AUTHOR, {} FROM NOW WHERE {} > 0'.format(bs,bs)
+            query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
                 embed.add_field(name=row[0],value=row[1],inline=True)
@@ -354,18 +355,18 @@ async def on_message(message):
                 curs.execute(query)
 
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
             if a == 1:
-                query='UPDATE `NOW` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
+                query='UPDATE `NOW_RADE` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
                 curs.execute(query)
             else:
-                query='INSERT INTO `NOW` ( AUTHOR, {} ) VALUES ( \'{}\' , {} )'.format(bs,str(message.author),num)
+                query='INSERT INTO `NOW_RADE` ( AUTHOR, {} ) VALUES ( \'{}\' , {} )'.format(bs,str(message.author),num)
                 curs.execute(query)
 
 
-            query='SELECT AUTHOR, {} FROM NOW WHERE {} > 0'.format(bs,bs)
+            query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
                 embed.add_field(name=row[0],value=row[1],inline=True)
@@ -377,8 +378,8 @@ async def on_message(message):
     if message.content == '~날짜':
         st = dt.datetime(2021,10,6,10,0,0)
         ed = dt.datetime(2021,10,13,6,0,0)
-        now = dt.datetime.now()
-        while ed < now:
+        NOW_RADE = dt.datetime.NOW_RADE()
+        while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
         text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드 ` '.format(st.month,st.day,ed.month,ed.day)
@@ -435,18 +436,18 @@ async def on_message(message):
             num = 1
 
         curs=data_db.cursor()
-        query = 'SELECT EXISTS ( SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\' )'.format(str(message.author))
+        query = 'SELECT EXISTS ( SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\' )'.format(str(message.author))
         curs.execute(query)
         a=curs.fetchone()[0]
         if a == 1:
-            query='UPDATE `NOW` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
+            query='UPDATE `NOW_RADE` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
             curs.execute(query)
         else:
-            query='INSERT INTO `NOW`(AUTHOR, {}) VALUES (\'{}\' , {})'.format(bs,str(message.author),num)
+            query='INSERT INTO `NOW_RADE`(AUTHOR, {}) VALUES (\'{}\' , {})'.format(bs,str(message.author),num)
             curs.execute(query)
 
 
-        query='SELECT AUTHOR, {} FROM NOW WHERE {} > 0'.format(bs,bs)
+        query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
         curs.execute(query)
         for row in curs.fetchall():
             embed.add_field(name=row[0],value=row[1],inline=True)
