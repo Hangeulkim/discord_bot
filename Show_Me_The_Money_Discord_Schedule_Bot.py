@@ -47,8 +47,20 @@ async def on_ready():
 @tasks.loop(hours=1.0)
 async def chk_date():
     ch = bot.get_channel(898561134783787028)
-    NOW_RADE = dt.datetime.NOW_RADE()
+    
+    NOW_RADE = dt.datetime.now()
     if NOW_RADE.weekday() == 2 and NOW_RADE.hour < 10 and NOW_RADE.hour > 6:
+        st = dt.datetime(2021,10,6,10,0,0)
+        ed = dt.datetime(2021,10,13,6,0,0)
+        NOW_RADE = dt.datetime.now()
+        while ed < NOW_RADE:
+            st = st + dt.timedelta(days=7)
+            ed = ed + dt.timedelta(days=7)
+        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드 ` '.format(st.month,st.day,ed.month,ed.day)
+        embed = discord.Embed(title = text,color = 0xFF0000)
+        message = await ch.fetch_message(data['when'])
+        await message.edit(embed=embed)
+
         data_db = pymysql.connect(
             user=os.environ['USER_NAME'],
             passwd=os.environ['USER_PASSWD'],
@@ -427,7 +439,7 @@ async def on_message(message):
     if message.content == '~날짜':
         st = dt.datetime(2021,10,6,10,0,0)
         ed = dt.datetime(2021,10,13,6,0,0)
-        NOW_RADE = dt.datetime.NOW_RADE()
+        NOW_RADE = dt.datetime.now()
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
