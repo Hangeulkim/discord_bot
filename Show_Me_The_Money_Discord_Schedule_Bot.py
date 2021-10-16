@@ -21,16 +21,15 @@ data['argo'] = 898830944860004362
 data['arv_nor_1_2'] = 898830949540843541
 arv_hard = 0
 
-data_db = pymysql.connect(
-    user=os.environ['USER_NAME'],
-    passwd=os.environ['USER_PASSWD'],
-    host=os.environ['USER_HOST'],
-    db=os.environ['USER_DB_NAME'],
-    autocommit=True
-)
-
 @bot.event
 async def on_ready():
+    data_db = pymysql.connect(
+        user=os.environ['USER_NAME'],
+        passwd=os.environ['USER_PASSWD'],
+        host=os.environ['USER_HOST'],
+        db=os.environ['USER_DB_NAME'],
+        autocommit=True
+    )
     curs = data_db.cursor()
 
     curs.execute('CREATE TABLE IF NOT EXISTS NOW_RADE (author text, bal_nor integer default 0, bal_hard integer default 0,\
@@ -50,6 +49,13 @@ async def chk_date():
     ch = bot.get_channel(898561134783787028)
     NOW_RADE = dt.datetime.NOW_RADE()
     if NOW_RADE.weekday() == 2 and NOW_RADE.hour < 10 and NOW_RADE.hour > 6:
+        data_db = pymysql.connect(
+            user=os.environ['USER_NAME'],
+            passwd=os.environ['USER_PASSWD'],
+            host=os.environ['USER_HOST'],
+            db=os.environ['USER_DB_NAME'],
+            autocommit=True
+        )
         curs = data_db.cursor()
         curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
         curs.execute('Create Tabel `NOW_RADE` LIKE `WED`')
@@ -124,6 +130,13 @@ async def on_message(message):
     bosses = ['발', '발탄', '비', '비아키스', '비아', '쿠크세이튼', '쿠크', '아르고스', '알고', '아브렐슈드', '아브']
 
     if message.content == '~한남재훈':
+        data_db = pymysql.connect(
+            user=os.environ['USER_NAME'],
+            passwd=os.environ['USER_PASSWD'],
+            host=os.environ['USER_HOST'],
+            db=os.environ['USER_DB_NAME'],
+            autocommit=True
+        )
         curs=data_db.cursor()
         
         curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
@@ -182,6 +195,13 @@ async def on_message(message):
         return
     
     if message.content == '~초기화':
+        data_db = pymysql.connect(
+            user=os.environ['USER_NAME'],
+            passwd=os.environ['USER_PASSWD'],
+            host=os.environ['USER_HOST'],
+            db=os.environ['USER_DB_NAME'],
+            autocommit=True
+        )
         curs=data_db.cursor()
         curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
         curs.execute('Create Table `NOW_RADE` LIKE `WED`')
@@ -277,7 +297,13 @@ async def on_message(message):
             num = int(re.sub(r'[^0-9]', '', string))
             if num == 0:
                 num = 1
-
+            data_db = pymysql.connect(
+                user=os.environ['USER_NAME'],
+                passwd=os.environ['USER_PASSWD'],
+                host=os.environ['USER_HOST'],
+                db=os.environ['USER_DB_NAME'],
+                autocommit=True
+            )
             curs=data_db.cursor()
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
@@ -351,7 +377,13 @@ async def on_message(message):
             if num == 0:
                 num = 1
 
-
+            data_db = pymysql.connect(
+                user=os.environ['USER_NAME'],
+                passwd=os.environ['USER_PASSWD'],
+                host=os.environ['USER_HOST'],
+                db=os.environ['USER_DB_NAME'],
+                autocommit=True
+            )
             curs=data_db.cursor()
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\' ) '.format(str(message.author))
             curs.execute(query)
@@ -444,6 +476,13 @@ async def on_message(message):
         if num == 0:
             num = 1
 
+        data_db = pymysql.connect(
+            user=os.environ['USER_NAME'],
+            passwd=os.environ['USER_PASSWD'],
+            host=os.environ['USER_HOST'],
+            db=os.environ['USER_DB_NAME'],
+            autocommit=True
+        )
         curs=data_db.cursor()
         query = 'SELECT EXISTS ( SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\' )'.format(str(message.author))
         curs.execute(query)
