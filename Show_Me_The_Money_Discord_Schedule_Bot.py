@@ -121,6 +121,55 @@ async def on_message(message):
     
     ch = bot.get_channel(898561134783787028)
     bosses = ['발', '발탄', '비', '비아키스', '비아', '쿠크세이튼', '쿠크', '아르고스', '알고', '아브렐슈드', '아브']
+
+    if message.content == '~한남재훈':
+        curs=data_db.cursor()
+        
+        curs.execute('DROP TABLE `NOW`')
+        curs.execute('DROP TABLE `INIT`')
+
+        mes=['발노','발하','비노','비하','쿠크','알고','아브']
+        for ms in mes:
+            if ms == '발탄' or ms == '발':
+                if '노말' in ms or '노' in ms:
+                    bs="bal_nor"
+                    embed = discord.Embed(title = ' `🐃 발탄 노말 🐃` ' ,color = 0xFF0000)
+
+
+                elif '하드' in ms or '하' in ms:
+                    bs='bal_hard'
+                    embed = discord.Embed(title = ' `🐃 발탄 하드 🐃` ' ,color = 0xFF0000)
+
+
+            elif ms == '비아키스' or ms == '비아' or ms == '비':
+                if '노말' in ms or '노' in ms:
+                    bs='bia_nor'
+                    embed = discord.Embed(title =' ` 💃 비아 노말 💃 ` ',color = 0xFF0000)
+
+
+                elif '하드' in ms or '하' in ms:
+                    bs='bia_hard'
+                    embed = discord.Embed(title =' ` 💃 비아 하드 💃 ` ',color = 0xFF0000)
+
+
+            elif ms == '쿠크':
+                bs='cook_nor'
+                embed = discord.Embed(title =' ` 🎲 쿠크 노말 🎲 ` ',color = 0xFF0000)
+
+
+            elif ms == '아르고스' or ms == '알고':
+                bs='argo'
+                embed = discord.Embed(title =' ` 🐐 아르고스 🐐 ` ',color = 0xFF0000)
+
+            elif ms == '아브렐슈드' or ms == '아브':
+                bs='arv_nor_1_2'
+                embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
+
+
+            message = await ch.fetch_message(data[bs])
+            await message.edit(embed=embed)
+
+            return
     
     if message.content == '~초기화':
         curs=data_db.cursor()
@@ -218,13 +267,13 @@ async def on_message(message):
             if num == 0:
                 num = 1
 
-            curs = data_db.cursor()
+            curs=data_db.cursor()
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            curs.execute(query)
 
-
-            curs.execute('SELECT EXISTS(SELECT AUTHOR FROM NOW WHERE AUTHOR = ?)',(str(message.author),))
             a=curs.fetchone()[0]
             if a == 1:
-                query = 'SELECT {} FROM NOW WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
+                query = 'SELECT {} FROM `NOW` WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
                 num = int(curs.fetchone()[0])-num
                 if num < 0:
                     num = 0
@@ -288,7 +337,6 @@ async def on_message(message):
             if num == 0:
                 num = 1
 
-            curs = data_db.cursor()
 
             curs=data_db.cursor()
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `INIT` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
