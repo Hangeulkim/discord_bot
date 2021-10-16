@@ -343,14 +343,14 @@ async def on_message(message):
 
 
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\' ) '.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
             if a == 1:
                 query='UPDATE `WED` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
                 curs.execute(query)
             else:
-                query='INSERT INTO `WED`(AUTHOR, {}) VALUES (\'{}\' , {})'.format(bs,str(message.author),num)
+                query='INSERT INTO `WED`(AUTHOR, {}) VALUES ( \'{}\' , {} ) '.format(bs,str(message.author),num)
                 curs.execute(query)
 
             curs=data_db.cursor()
@@ -361,7 +361,7 @@ async def on_message(message):
                 query='UPDATE `NOW` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
                 curs.execute(query)
             else:
-                query='INSERT INTO `NOW`(AUTHOR, {}) VALUES (\'{}\',{})'.format(bs,str(message.author),num)
+                query='INSERT INTO `NOW` ( AUTHOR, {} ) VALUES ( \'{}\' , {} )'.format(bs,str(message.author),num)
                 curs.execute(query)
 
 
@@ -435,14 +435,14 @@ async def on_message(message):
             num = 1
 
         curs=data_db.cursor()
-        query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+        query = 'SELECT EXISTS ( SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\' )'.format(str(message.author))
         curs.execute(query)
         a=curs.fetchone()[0]
         if a == 1:
             query='UPDATE `NOW` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
             curs.execute(query)
         else:
-            query='INSERT INTO `NOW`(AUTHOR, {}) VALUES (\'{}\',{})'.format(bs,str(message.author),num)
+            query='INSERT INTO `NOW`(AUTHOR, {}) VALUES (\'{}\' , {})'.format(bs,str(message.author),num)
             curs.execute(query)
 
 
