@@ -171,7 +171,7 @@ async def on_message(message):
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
 
-            return
+        return
     
     if message.content == '~초기화':
         curs=data_db.cursor()
