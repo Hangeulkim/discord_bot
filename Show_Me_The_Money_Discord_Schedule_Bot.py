@@ -37,7 +37,7 @@ async def on_ready():
     bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
         arv_nor_1_2 integer default 0)')
 
-    curs.execute('CREATE TABLE IF NOT EXISTS INIT (author text, bal_nor integer default 0, bal_hard integer default 0,\
+    curs.execute('CREATE TABLE IF NOT EXISTS WED (author text, bal_nor integer default 0, bal_hard integer default 0,\
     bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
         arv_nor_1_2 integer default 0)')
 
@@ -51,7 +51,7 @@ async def chk_date():
     now = dt.datetime.now()
     if now.weekday() == 2 and now.hour < 10 and now.hour > 6:
         curs = data_db.cursor()
-        curs.execute('Create Tabel NOW LIKE INIT')
+        curs.execute('Create Tabel NOW LIKE WED')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
@@ -91,7 +91,7 @@ async def chk_date():
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
                 
 
-            query='SELECT AUTHOR, {} FROM INIT WHERE {} > 0'.format(bs,bs)
+            query='SELECT AUTHOR, {} FROM WED WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
                 embed.add_field(name=row[0],value=row[1],inline=True)
@@ -126,7 +126,7 @@ async def on_message(message):
         curs=data_db.cursor()
         
         curs.execute('DROP TABLE `NOW`')
-        curs.execute('DROP TABLE `INIT`')
+        curs.execute('DROP TABLE `WED`')
 
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
@@ -173,7 +173,7 @@ async def on_message(message):
     
     if message.content == '~초기화':
         curs=data_db.cursor()
-        curs.execute('Create Tabel NOW LIKE INIT')
+        curs.execute('Create Tabel NOW LIKE WED')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
@@ -213,7 +213,7 @@ async def on_message(message):
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
 
 
-            query='SELECT AUTHOR, {} FROM INIT WHERE {} > 0'.format(bs,bs)
+            query='SELECT AUTHOR, {} FROM WED WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
                 embed.add_field(name=row[0],value=row[1],inline=True)
@@ -339,14 +339,14 @@ async def on_message(message):
 
 
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `INIT` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
             if a == 1:
-                query='UPDATE `INIT` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
+                query='UPDATE `WED` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
                 curs.execute(query)
             else:
-                query='INSERT INTO `INIT`(AUTHOR, {}) VALUES (\'{}\',{})'.format(bs,str(message.author),num)
+                query='INSERT INTO `WED`(AUTHOR, {}) VALUES (\'{}\' , {})'.format(bs,str(message.author),num)
                 curs.execute(query)
 
             curs=data_db.cursor()
