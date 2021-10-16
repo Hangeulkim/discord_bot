@@ -300,8 +300,9 @@ async def on_message(message):
 
         if bs != "":
             string = message.content
-            num = int(re.sub(r'[^0-9]', '', string))
-            if num == 0:
+            try:
+                num = int(re.sub(r'[^0-9]', '', string))
+            except:
                 num = 1
             data_db = pymysql.connect(
                 user=os.environ['USER_NAME'],
@@ -379,9 +380,10 @@ async def on_message(message):
                     embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
         if bs != "":                
             string = message.content
-            num = int(re.sub(r'[^0-9]', '', string))
-            if num == 0:
-                num = 1
+            try:
+                num = int(re.sub(r'[^0-9]', '', string))
+            except:
+                num=1
 
             data_db = pymysql.connect(
                 user=os.environ['USER_NAME'],
@@ -478,9 +480,11 @@ async def on_message(message):
 
     if bs != "":
         string = message.content
-        num = int(re.sub(r'[^0-9]', '', string))
-        if num == 0:
-            num = 1
+        try:
+            num = int(re.sub(r'[^0-9]', '', string))
+        except:
+            num=1
+
 
         data_db = pymysql.connect(
             user=os.environ['USER_NAME'],
