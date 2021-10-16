@@ -125,8 +125,8 @@ async def on_message(message):
     if message.content == '~한남재훈':
         curs=data_db.cursor()
         
-        curs.execute('DROP TABLE `NOW_RADE`')
-        curs.execute('DROP TABLE `WED`')
+        curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
+        curs.execute('DROP TABLE IF EXISTS `WED`')
 
         curs.execute('CREATE TABLE IF NOT EXISTS NOW_RADE (author text, bal_nor integer default 0, bal_hard integer default 0,\
         bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
@@ -182,7 +182,7 @@ async def on_message(message):
     
     if message.content == '~초기화':
         curs=data_db.cursor()
-        curs.execute('DROP TABLE `NOW_RADE`')
+        curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
         curs.execute('Create Table `NOW_RADE` LIKE `WED`')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
