@@ -383,7 +383,7 @@ async def on_message(message):
             num = 1
 
         curs=data_db.cursor()
-        query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE AUTHOR=\'{}\')'.format(str(message.author))
+        query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
         curs.execute(query)
         a=curs.fetchone()[0]
         if a == 1:
