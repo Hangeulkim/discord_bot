@@ -22,10 +22,10 @@ data['arv_nor_1_2'] = 898830949540843541
 arv_hard = 0
 
 data_db = pymysql.connect(
-    user=os.environ[USER_NAME],
-    passwd=os.environ[USER_PASSWD],
-    host=os.environ[USER_HOST],
-    db=os.environ[USER_DB_NAME],
+    user=os.environ['USER_NAME'],
+    passwd=os.environ['USER_PASSWD'],
+    host=os.environ['USER_HOST'],
+    db=os.environ['USER_DB_NAME'],
     autocommit=True
 )
 
