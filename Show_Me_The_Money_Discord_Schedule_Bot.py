@@ -221,7 +221,7 @@ async def on_message(message):
             curs = data_db.cursor()
 
 
-            curs.execute('SELECT EXISTS(SELECT AUTHOR FROM NOW WHERE AUTHOR=?)',(str(message.author),))
+            curs.execute('SELECT EXISTS(SELECT AUTHOR FROM NOW WHERE AUTHOR = ?)',(str(message.author),))
             a=curs.fetchone()[0]
             if a == 1:
                 query = 'SELECT {} FROM NOW WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
@@ -291,7 +291,7 @@ async def on_message(message):
             curs = data_db.cursor()
 
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `INIT` WHERE AUTHOR=\'{}\')'.format(str(message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `INIT` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
             if a == 1:
@@ -302,7 +302,7 @@ async def on_message(message):
                 curs.execute(query)
 
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE AUTHOR=\'{}\')'.format(str(message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
             if a == 1:
