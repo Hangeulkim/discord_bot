@@ -117,6 +117,7 @@ async def on_message(message):
     if message.content == '~bye':
         await message.channel.send(f'{message.author.mention}님 게임좀 그만하세요!')
         return
+
     await message.delete()
     
     ch = bot.get_channel(898561134783787028)
@@ -274,6 +275,7 @@ async def on_message(message):
             a=curs.fetchone()[0]
             if a == 1:
                 query = 'SELECT {} FROM `NOW` WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
+                curs.execute(query)
                 every_num = curs.fetchone()
                 print(every_num)
                 num = int(every_num)-num
