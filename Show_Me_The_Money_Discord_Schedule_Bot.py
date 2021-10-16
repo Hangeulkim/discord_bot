@@ -124,7 +124,9 @@ async def on_message(message):
         await message.channel.send(f'{message.author.mention}님 게임좀 그만하세요!')
         return
 
+    await asyncio.sleep(1)
     await message.delete()
+    await asyncio.sleep(1)
     
     ch = bot.get_channel(898561134783787028)
     bosses = ['발', '발탄', '비', '비아키스', '비아', '쿠크세이튼', '쿠크', '아르고스', '알고', '아브렐슈드', '아브']
