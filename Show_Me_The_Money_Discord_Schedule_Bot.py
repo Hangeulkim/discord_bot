@@ -131,7 +131,7 @@ async def on_message(message):
 
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
-            if ms == '발탄' or ms == '발':
+            if ms in '발탄' or ms in '발':
                 if '노말' in ms or '노' in ms:
                     bs="bal_nor"
                     embed = discord.Embed(title = ' `🐃 발탄 노말 🐃` ' ,color = 0xFF0000)
@@ -142,7 +142,7 @@ async def on_message(message):
                     embed = discord.Embed(title = ' `🐃 발탄 하드 🐃` ' ,color = 0xFF0000)
 
 
-            elif ms == '비아키스' or ms == '비아' or ms == '비':
+            elif  '비아키스' in ms or '비아' in ms or '비' in ms:
                 if '노말' in ms or '노' in ms:
                     bs='bia_nor'
                     embed = discord.Embed(title =' ` 💃 비아 노말 💃 ` ',color = 0xFF0000)
@@ -153,16 +153,16 @@ async def on_message(message):
                     embed = discord.Embed(title =' ` 💃 비아 하드 💃 ` ',color = 0xFF0000)
 
 
-            elif ms == '쿠크':
+            elif '쿠크' in ms:
                 bs='cook_nor'
                 embed = discord.Embed(title =' ` 🎲 쿠크 노말 🎲 ` ',color = 0xFF0000)
 
 
-            elif ms == '아르고스' or ms == '알고':
+            elif '아르고스' in ms or '알고' in ms:
                 bs='argo'
                 embed = discord.Embed(title =' ` 🐐 아르고스 🐐 ` ',color = 0xFF0000)
 
-            elif ms == '아브렐슈드' or ms == '아브':
+            elif '아브렐슈드' in ms or '아브' in ms:
                 bs='arv_nor_1_2'
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
 
@@ -178,7 +178,7 @@ async def on_message(message):
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
-            if ms == '발탄' or ms == '발':
+            if ms in '발탄' or ms in '발':
                 if '노말' in ms or '노' in ms:
                     bs="bal_nor"
                     embed = discord.Embed(title = ' `🐃 발탄 노말 🐃` ' ,color = 0xFF0000)
@@ -189,7 +189,7 @@ async def on_message(message):
                     embed = discord.Embed(title = ' `🐃 발탄 하드 🐃` ' ,color = 0xFF0000)
 
 
-            elif ms == '비아키스' or ms == '비아' or ms == '비':
+            elif  '비아키스' in ms or '비아' in ms or '비' in ms:
                 if '노말' in ms or '노' in ms:
                     bs='bia_nor'
                     embed = discord.Embed(title =' ` 💃 비아 노말 💃 ` ',color = 0xFF0000)
@@ -200,16 +200,16 @@ async def on_message(message):
                     embed = discord.Embed(title =' ` 💃 비아 하드 💃 ` ',color = 0xFF0000)
 
 
-            elif ms == '쿠크':
+            elif '쿠크' in ms:
                 bs='cook_nor'
                 embed = discord.Embed(title =' ` 🎲 쿠크 노말 🎲 ` ',color = 0xFF0000)
 
 
-            elif ms == '아르고스' or ms == '알고':
+            elif '아르고스' in ms or '알고' in ms:
                 bs='argo'
                 embed = discord.Embed(title =' ` 🐐 아르고스 🐐 ` ',color = 0xFF0000)
 
-            elif ms == '아브렐슈드' or ms == '아브':
+            elif '아브렐슈드' in ms or '아브' in ms:
                 bs='arv_nor_1_2'
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
 
