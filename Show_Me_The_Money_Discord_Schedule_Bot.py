@@ -128,6 +128,14 @@ async def on_message(message):
         curs.execute('DROP TABLE `NOW_RADE`')
         curs.execute('DROP TABLE `WED`')
 
+        curs.execute('CREATE TABLE IF NOT EXISTS NOW_RADE (author text, bal_nor integer default 0, bal_hard integer default 0,\
+        bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
+        arv_nor_1_2 integer default 0)')
+
+        curs.execute('CREATE TABLE IF NOT EXISTS WED (author text, bal_nor integer default 0, bal_hard integer default 0,\
+        bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
+            arv_nor_1_2 integer default 0)')
+
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         bs=""
         for ms in mes:
