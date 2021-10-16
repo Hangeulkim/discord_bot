@@ -281,8 +281,8 @@ async def on_message(message):
                 num = int(every_num)-num
                 if num < 0:
                     num = 0
-                query='UPDATE `NOW` SET {}= ? WHERE AUTHOR = ?'.format(bs)
-                curs.execute(query,(num,str(message.author)))
+                query='UPDATE `NOW` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(message.author))
+                curs.execute(query)
             else:
                 await message.channel.send(f'{message.author.mention}님 완료하실 캐릭터가 없습니다!')
                 return
