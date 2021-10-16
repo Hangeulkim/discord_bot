@@ -1,1 +1,1 @@
-worke: python Show_Me_The_Money_Discord_Schedule_Bot.py
+worker: python Show_Me_The_Money_Discord_Schedule_Bot.py
