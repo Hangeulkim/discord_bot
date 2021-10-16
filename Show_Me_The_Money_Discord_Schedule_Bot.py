@@ -182,6 +182,7 @@ async def on_message(message):
     
     if message.content == '~초기화':
         curs=data_db.cursor()
+        curs.execute('DROP TABLE `NOW_RADE`')
         curs.execute('Create Table `NOW_RADE` LIKE `WED`')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
@@ -222,7 +223,7 @@ async def on_message(message):
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
 
 
-            query='SELECT AUTHOR, {} FROM WED WHERE {} > 0'.format(bs,bs)
+            query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
                 embed.add_field(name=row[0],value=row[1],inline=True)
