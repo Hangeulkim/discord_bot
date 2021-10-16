@@ -276,7 +276,7 @@ async def on_message(message):
             if a == 1:
                 query = 'SELECT {} FROM `NOW` WHERE AUTHOR = \'{}\''.format(bs,str(message.author))
                 curs.execute(query)
-                every_num = curs.fetchone()
+                every_num = curs.fetchone()[0]
                 print(every_num)
                 num = int(every_num)-num
                 if num < 0:
