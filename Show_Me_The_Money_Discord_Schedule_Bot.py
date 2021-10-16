@@ -1,13 +1,11 @@
 import discord, asyncio, os
-from discord.ext import commands
-import nest_asyncio
+from discord.ext import commands, tasks
 import datetime as dt
 from datetime import date
 import sqlite3
 import shutil
 import re
 
-nest_asyncio.apply()
 
 bot = commands.Bot(command_prefix='~')
 
@@ -28,7 +26,7 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=game)  
     print("Start Bot\n")
         
-@bot.loop(hours=1)
+@tasks.loop(hours=1.0)
 async def chk_date():
     ch = bot.get_channel(898561134783787028)
     now = dt.datetime.now()
