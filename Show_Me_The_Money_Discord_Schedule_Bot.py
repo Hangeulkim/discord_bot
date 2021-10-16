@@ -139,7 +139,7 @@ async def on_message(message):
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         bs=""
         for ms in mes:
-            if ms in '발탄' or ms in '발':
+            if '발탄' in ms or '발' in ms:
                 if '노말' in ms or '노' in ms:
                     bs="bal_nor"
                     embed = discord.Embed(title = ' `🐃 발탄 노말 🐃` ' ,color = 0xFF0000)
