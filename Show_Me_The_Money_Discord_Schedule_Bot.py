@@ -124,14 +124,16 @@ async def on_message(message):
         await message.channel.send(f'{message.author.mention}님 게임좀 그만하세요!')
         return
 
-    await asyncio.sleep(1)
+    await asyncio.sleep(0.3)
     await message.delete()
-    await asyncio.sleep(1)
+    await asyncio.sleep(0.3)
     
     ch = bot.get_channel(898561134783787028)
     bosses = ['발', '발탄', '비', '비아키스', '비아', '쿠크세이튼', '쿠크', '아르고스', '알고', '아브렐슈드', '아브']
 
     if message.content == '~한남재훈':
+        await message.channel.send(f'{message.author.mention}님 께서 서버를 공격하고 계십니다!')
+
         data_db = pymysql.connect(
             user=os.environ['USER_NAME'],
             passwd=os.environ['USER_PASSWD'],
@@ -197,6 +199,8 @@ async def on_message(message):
         return
     
     if message.content == '~초기화':
+        await message.channel.send(f'{message.author.mention}님 께서 서버를 해킹하고 계십니다')
+
         data_db = pymysql.connect(
             user=os.environ['USER_NAME'],
             passwd=os.environ['USER_PASSWD'],
