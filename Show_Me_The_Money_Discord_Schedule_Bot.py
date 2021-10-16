@@ -51,6 +51,7 @@ async def chk_date():
     NOW_RADE = dt.datetime.NOW_RADE()
     if NOW_RADE.weekday() == 2 and NOW_RADE.hour < 10 and NOW_RADE.hour > 6:
         curs = data_db.cursor()
+        curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
         curs.execute('Create Tabel `NOW_RADE` LIKE `WED`')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
