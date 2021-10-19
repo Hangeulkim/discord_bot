@@ -70,7 +70,7 @@ async def chk_date():
         )
         curs = data_db.cursor()
         curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
-        curs.execute('Create Tabel `NOW_RADE` LIKE `WED`')
+        curs.execute('Create Table `NOW_RADE` (SELECT * FROM `WED`)')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
@@ -122,7 +122,7 @@ async def chk_date():
         
 @bot.event
 async def on_message(message):
-    if message.author == bot.user:
+    if message.author == bot.user or len(message.content) == 0:
         return
     
     if message.content[0]!='~':
@@ -222,7 +222,7 @@ async def on_message(message):
         )
         curs=data_db.cursor()
         curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
-        curs.execute('Create Table `NOW_RADE` LIKE `WED`')
+        curs.execute('Create Table `NOW_RADE` (SELECT * FROM `WED`)')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
@@ -415,7 +415,6 @@ async def on_message(message):
                 query='INSERT INTO `WED`(AUTHOR, {}) VALUES ( \'{}\' , {} ) '.format(bs,str(message.author),num)
                 curs.execute(query)
 
-            curs=data_db.cursor()
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
@@ -427,7 +426,7 @@ async def on_message(message):
                 curs.execute(query)
 
 
-            query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
+            query='SELECT AUTHOR, {} FROM `NOW_RADE` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
                 embed.add_field(name=row[0],value=row[1],inline=True)
