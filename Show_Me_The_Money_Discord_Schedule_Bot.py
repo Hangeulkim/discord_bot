@@ -4,6 +4,7 @@ import datetime as dt
 import re
 import pymysql
 import time
+import asyncio
 
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix='~', intents=intents)
@@ -90,7 +91,7 @@ def show_boss(msg):
     
     return bs, embed
 
-@bot.event
+@bot.command()
 async def show_data(bs, embed):
     ch = bot.get_channel(898561134783787028)
     query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
