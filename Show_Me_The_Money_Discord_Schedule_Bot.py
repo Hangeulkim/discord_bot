@@ -113,7 +113,8 @@ async def chk_date():
             query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = await bot.fetch_user(row[0])
+                member_id = discord.utils.get(bot.get_all_members(), name=row[0], discriminator="1234").id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -268,7 +269,8 @@ async def on_message(message):
             query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = await bot.fetch_user(row[0])
+                member_id = discord.utils.get(bot.get_all_members(), name=row[0], discriminator="1234").id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -351,7 +353,8 @@ async def on_message(message):
             query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = await bot.fetch_user(row[0])
+                member_id = discord.utils.get(bot.get_all_members(), name=row[0], discriminator="1234").id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -436,7 +439,8 @@ async def on_message(message):
             query='SELECT AUTHOR, {} FROM `NOW_RADE` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = await bot.fetch_user(row[0])
+                member_id = discord.utils.get(bot.get_all_members(), name=row[0], discriminator="1234").id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -529,7 +533,8 @@ async def on_message(message):
         query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
         curs.execute(query)
         for row in curs.fetchall():
-            member = await bot.fetch_user(row[0])
+            member_id = discord.utils.get(bot.get_all_members(), name=row[0], discriminator="1234").id
+            member = await bot.fetch_user(member_id)
             embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
         message = await ch.fetch_message(data[bs])
         await message.edit(embed=embed)
