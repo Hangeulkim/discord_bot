@@ -89,7 +89,8 @@ def show_boss(msg):
                 embed.set_thumbnail(url='https://cdn.discordapp.com/emojis/898656299158483036.png')
     
     return bs, embed
-    
+
+@commands.command()
 async def show_data(bs, embed):
     ch = bot.get_channel(898561134783787028)
     query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
