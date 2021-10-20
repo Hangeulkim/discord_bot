@@ -106,11 +106,7 @@ async def show_data(bs, embed):
 
     curs.execute(query)
     for row in curs.fetchall():
-        username, discriminator = row[0].split("#")
-        member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
-        member = await bot.fetch_user(member_id)
         embed.add_field(name=row[0],value=row[1],inline=True)
-        embed.set_image(url = member.avatar_url)
     message = await ch.fetch_message(data[bs])
     await message.edit(embed=embed)
 
