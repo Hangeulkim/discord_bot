@@ -113,7 +113,7 @@ async def chk_date():
             query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = bot.get_user(row[0])
+                member = await bot.fetch_user(row[0])
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -268,7 +268,7 @@ async def on_message(message):
             query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = bot.get_user(row[0])
+                member = await bot.fetch_user(row[0])
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -351,7 +351,7 @@ async def on_message(message):
             query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = bot.get_user(row[0])
+                member = await bot.fetch_user(row[0])
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -436,7 +436,7 @@ async def on_message(message):
             query='SELECT AUTHOR, {} FROM `NOW_RADE` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
-                member = bot.get_user(row[0])
+                member = await bot.fetch_user(row[0])
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -529,7 +529,7 @@ async def on_message(message):
         query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
         curs.execute(query)
         for row in curs.fetchall():
-            member = bot.get_user(row[0])
+            member = await bot.fetch_user(row[0])
             embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
         message = await ch.fetch_message(data[bs])
         await message.edit(embed=embed)
