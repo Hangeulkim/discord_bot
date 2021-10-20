@@ -118,7 +118,7 @@ async def chk_date():
                 member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
                 member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True)
-                embed.add_image(member.avatar_url)
+                embed.add_image(url = member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
 
@@ -290,7 +290,7 @@ async def on_message(message):
                 member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
                 member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True)
-                embed.add_image(member.avatar_url)
+                embed.add_image(url = member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
 
@@ -376,7 +376,7 @@ async def on_message(message):
                 member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
                 member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True)
-                embed.add_image(member.avatar_url)
+                embed.add_image(url = member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
 
@@ -464,7 +464,7 @@ async def on_message(message):
                 member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
                 member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True)
-                embed.add_image(member.avatar_url)
+                embed.add_image(url = member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
 
@@ -548,7 +548,7 @@ async def on_message(message):
             member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
             member = await bot.fetch_user(member_id)
             embed.add_field(name=row[0],value=row[1],inline=True)
-            embed.add_image(member.avatar_url)
+            embed.add_image(url = member.avatar_url)
         message = await ch.fetch_message(data[bs])
         await message.edit(embed=embed)
 
