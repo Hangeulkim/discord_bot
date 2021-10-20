@@ -60,7 +60,7 @@ async def chk_date():
             ed = ed + dt.timedelta(days=7)
         text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드 ` '.format(st.month,st.day,ed.month,ed.day)
         embed = discord.Embed(title = text,color = 0xFF0000)
-        message = await ch.fetch_message(data['when'])
+        message = await ch.fetch_message(898830780682350622)
         await message.edit(embed=embed)
 
         data_db = pymysql.connect(
