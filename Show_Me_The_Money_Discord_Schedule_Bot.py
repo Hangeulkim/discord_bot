@@ -112,7 +112,7 @@ async def chk_date():
                 bs='arv_nor_1_2'
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
 
-            query='SELECT AUTHOR, {} FROM WED WHERE {} > 0'.format(bs,bs)
+            query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
             for row in curs.fetchall():
                 embed.add_field(name=row[0],value=row[1],inline=True)
