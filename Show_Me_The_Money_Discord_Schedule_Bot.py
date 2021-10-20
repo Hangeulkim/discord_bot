@@ -71,13 +71,13 @@ async def chk_date():
             db=os.environ['USER_DB_NAME'],
             autocommit=True
         )
-        curs = data_db.cursor()
+        curs=data_db.cursor()
         curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
         curs.execute('Create Table `NOW_RADE` (SELECT * FROM `WED`)')
         bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
-            if ms in '발탄' or ms in '발':
+            if '발탄' in ms or '발' in ms:
                 if '노말' in ms or '노' in ms:
                     bs="bal_nor"
                     embed = discord.Embed(title = ' `🐃 발탄 노말 🐃` ' ,color = 0xFF0000)
@@ -111,6 +111,7 @@ async def chk_date():
             elif '아브렐슈드' in ms or '아브' in ms:
                 bs='arv_nor_1_2'
                 embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
+
 
             query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
