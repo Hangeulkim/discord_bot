@@ -6,6 +6,7 @@ import sqlite3
 import shutil
 import re
 import pymysql
+import time
 
 
 bot = commands.Bot(command_prefix='~')
@@ -44,7 +45,7 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=game)  
     print("Start Bot\n")
         
-@tasks.loop(seconds=10.0)
+@tasks.loop(seconds=1)
 async def chk_date():
     ch = bot.get_channel(898561134783787028)
     
@@ -118,7 +119,7 @@ async def chk_date():
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
             
-    
+    time.sleep(5)
 
     return
         
@@ -441,6 +442,7 @@ async def on_message(message):
         st = dt.datetime(2021,10,6,10,0,0)
         ed = dt.datetime(2021,10,13,6,0,0)
         NOW_RADE = dt.datetime.now()
+        print(NOW_RADE)
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
