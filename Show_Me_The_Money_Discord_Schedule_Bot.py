@@ -45,14 +45,14 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=game)  
     print("Start Bot\n")
         
-@tasks.loop(seconds=1)
+@tasks.loop(seconds=10)
 async def chk_date():
     ch = bot.get_channel(898561134783787028)
     
-    NOW_RADE = dt.datetime.now()
+    NOW_RADE = dt.datetime.now()+dt.timedelta(hours=7)
     print(NOW_RADE.weekday())
     print(NOW_RADE.hour)
-    if NOW_RADE.weekday() == 2 and NOW_RADE.hour < 10 and NOW_RADE.hour > 6:
+    if NOW_RADE.weekday() == 2 and NOW_RADE.hour > 6:
         st = dt.datetime(2021,10,6,10,0,0)
         ed = dt.datetime(2021,10,13,6,0,0)
         NOW_RADE = dt.datetime.now()
@@ -441,7 +441,7 @@ async def on_message(message):
     if message.content == '~날짜':
         st = dt.datetime(2021,10,6,10,0,0)
         ed = dt.datetime(2021,10,13,6,0,0)
-        NOW_RADE = dt.datetime.now()
+        NOW_RADE = dt.datetime.now()+dt.timedelta(hours=7)
         print(NOW_RADE)
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
