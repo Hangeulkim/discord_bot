@@ -91,7 +91,7 @@ def show_boss(msg):
     
     return bs, embed
 
-@commands.command()
+@bot.event
 async def show_data(bs, embed):
     ch = bot.get_channel(898561134783787028)
     query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
