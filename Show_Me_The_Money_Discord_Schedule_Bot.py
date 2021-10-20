@@ -124,7 +124,7 @@ async def chk_date():
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
-        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  :__:` '.format(st.month,st.day,ed.month,ed.day)
+        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  <:__:899685930347143178>` '.format(st.month,st.day,ed.month,ed.day)
         embed = discord.Embed(title = text,color = 0xFF0000)
         message = await ch.fetch_message(data['when'])
         await message.edit(embed=embed)
@@ -180,7 +180,7 @@ async def on_message(message):
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
-        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  :__:` '.format(st.month,st.day,ed.month,ed.day)
+        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  <:__:899685930347143178>` '.format(st.month,st.day,ed.month,ed.day)
         embed = discord.Embed(title = text,color = 0xFF0000)
         message = await ch.fetch_message(data['when'])
         await message.edit(embed=embed)
