@@ -148,7 +148,7 @@ async def chk_date():
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
             bs, embed = show_boss(ms)
-            show_data(bs,embed)
+            await show_data(bs,embed)
 
             
     time.sleep(5)
@@ -218,7 +218,7 @@ async def on_message(message):
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
             bs, embed = show_boss(ms)
-            show_data(bs,embed)
+            await show_data(bs,embed)
 
         return
     
@@ -238,7 +238,7 @@ async def on_message(message):
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
             bs, embed = show_boss(ms)
-            show_data(bs,embed)
+            await show_data(bs,embed)
             
         return
     
@@ -277,7 +277,7 @@ async def on_message(message):
                 return
 
 
-            show_data(bs,embed)
+            await show_data(bs,embed)
 
             return
     
@@ -319,7 +319,7 @@ async def on_message(message):
                 curs.execute(query)
 
 
-            show_data(bs,embed)
+            await show_data(bs,embed)
             
             return
     
@@ -354,7 +354,7 @@ async def on_message(message):
             query='INSERT INTO `NOW_RADE`(AUTHOR, {}) VALUES (\'{}\' , {})'.format(bs,str(message.author),num)
             curs.execute(query)
 
-        show_data(bs,embed)
+        await show_data(bs,embed)
 
         return        
 
