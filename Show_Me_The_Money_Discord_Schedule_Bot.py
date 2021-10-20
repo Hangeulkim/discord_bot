@@ -1,9 +1,6 @@
 import discord, asyncio, os
 from discord.ext import commands, tasks
 import datetime as dt
-from datetime import date
-import sqlite3
-import shutil
 import re
 import pymysql
 import time
