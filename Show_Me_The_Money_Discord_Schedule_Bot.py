@@ -4,7 +4,6 @@ import datetime as dt
 import re
 import pymysql
 import time
-import asyncio
 
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix='~', intents=intents)
@@ -368,4 +367,4 @@ if __name__ == "__main__":
     #token = open('D:/옮길거/공부/python/디코봇/Token.txt',"r",encoding="utf-8").read()
     #bot.run(token)
     chk_date.start()
-    asyncio.run(bot.login(os.environ['TOKEN']))
+    bot.run(os.environ['TOKEN'])
