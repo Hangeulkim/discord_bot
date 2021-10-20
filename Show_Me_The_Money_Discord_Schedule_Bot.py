@@ -8,8 +8,8 @@ import re
 import pymysql
 import time
 
-intents = discord.Intents().all()
-bot = commands.Bot(command_prefix='~', intents=intents)
+
+bot = commands.Bot(command_prefix='~')
 
 data={}
 data['when'] = 898830780682350622
