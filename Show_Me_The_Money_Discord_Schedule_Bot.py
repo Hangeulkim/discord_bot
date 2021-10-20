@@ -215,7 +215,6 @@ async def on_message(message):
             arv_nor_1_2 integer default 0)')
 
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
-        bs=""
         for ms in mes:
             bs, embed = show_boss(ms)
             show_data(bs,embed)
@@ -235,7 +234,6 @@ async def on_message(message):
         curs=data_db.cursor()
         curs.execute('DROP TABLE IF EXISTS `NOW_RADE`')
         curs.execute('Create Table `NOW_RADE` (SELECT * FROM `WED`)')
-        bs = ""
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
             bs, embed = show_boss(ms)
@@ -244,7 +242,6 @@ async def on_message(message):
         return
     
     if '완료' in message.content or '완' in message.content:
-        bs = ""
         bs, embed = show_boss(message.content)
         if bs != "":
             string = message.content
@@ -328,8 +325,8 @@ async def on_message(message):
     
     print(message.content)
 
-
-    bs,embed = show_data(message.content)
+    
+    bs,embed = show_boss(message.content,embed)
     if bs != "":
         string = message.content
         try:
@@ -356,7 +353,7 @@ async def on_message(message):
             query='INSERT INTO `NOW_RADE`(AUTHOR, {}) VALUES (\'{}\' , {})'.format(bs,str(message.author),num)
             curs.execute(query)
 
-        show_boss(bs,embed)
+        show_data(bs,embed)
 
         return        
 
