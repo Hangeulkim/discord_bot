@@ -268,6 +268,7 @@ async def on_message(message):
 
             query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
+            print(bot.get_all_members())
             for row in curs.fetchall():
                 member_id = discord.utils.get(bot.get_all_members(), name=row[0][:row[0].rfind('#')], discriminator=row[0][row[0].rfind('#')+1:]).id
                 member = await bot.fetch_user(member_id)
