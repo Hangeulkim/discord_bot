@@ -90,7 +90,7 @@ def show_boss(msg):
     
     return bs, embed
     
-def show_data(bs, embed):
+async def show_data(bs, embed):
     ch = bot.get_channel(898561134783787028)
     query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
     data_db = pymysql.connect(
