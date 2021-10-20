@@ -114,8 +114,11 @@ async def chk_date():
             curs.execute(query)
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
-                member = await bot.fetch_user(member_id)
+                p = bot.get_all_members()
+                found_members = filter(lambda m: m.discriminator == discriminator, p)
+                member = discord.utils.get(found_members, name = username)
+                id = member.id
+                member = await bot.fetch_user(id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -147,6 +150,20 @@ async def on_message(message):
     
     ch = bot.get_channel(898561134783787028)
     bosses = ['발', '발탄', '비', '비아키스', '비아', '쿠크세이튼', '쿠크', '아르고스', '알고', '아브렐슈드', '아브']
+
+    if message.content == '~날짜':
+        st = dt.datetime(2021,10,6,10,0,0)
+        ed = dt.datetime(2021,10,13,6,0,0)
+        NOW_RADE = dt.datetime.now()+dt.timedelta(hours=7)
+        print(NOW_RADE)
+        while ed < NOW_RADE:
+            st = st + dt.timedelta(days=7)
+            ed = ed + dt.timedelta(days=7)
+        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드 ` '.format(st.month,st.day,ed.month,ed.day)
+        embed = discord.Embed(title = text,color = 0xFF0000)
+        message = await ch.fetch_message(data['when'])
+        await message.edit(embed=embed)
+        return
 
     if message.content == '~한남재훈':
         await message.channel.send(f'{message.author.mention}님 께서 서버를 공격하고 계십니다!')
@@ -272,8 +289,11 @@ async def on_message(message):
             print(bot.get_all_members())
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
-                member = await bot.fetch_user(member_id)
+                p = bot.get_all_members()
+                found_members = filter(lambda m: m.discriminator == discriminator, p)
+                member = discord.utils.get(found_members, name = username)
+                id = member.id
+                member = await bot.fetch_user(id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -357,8 +377,11 @@ async def on_message(message):
             curs.execute(query)
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
-                member = await bot.fetch_user(member_id)
+                p = bot.get_all_members()
+                found_members = filter(lambda m: m.discriminator == discriminator, p)
+                member = discord.utils.get(found_members, name = username)
+                id = member.id
+                member = await bot.fetch_user(id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -444,8 +467,11 @@ async def on_message(message):
             curs.execute(query)
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
-                member = await bot.fetch_user(member_id)
+                p = bot.get_all_members()
+                found_members = filter(lambda m: m.discriminator == discriminator, p)
+                member = discord.utils.get(found_members, name = username)
+                id = member.id
+                member = await bot.fetch_user(id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -453,19 +479,7 @@ async def on_message(message):
             
             return
     
-    if message.content == '~날짜':
-        st = dt.datetime(2021,10,6,10,0,0)
-        ed = dt.datetime(2021,10,13,6,0,0)
-        NOW_RADE = dt.datetime.now()+dt.timedelta(hours=7)
-        print(NOW_RADE)
-        while ed < NOW_RADE:
-            st = st + dt.timedelta(days=7)
-            ed = ed + dt.timedelta(days=7)
-        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드 ` '.format(st.month,st.day,ed.month,ed.day)
-        embed = discord.Embed(title = text,color = 0xFF0000)
-        message = await ch.fetch_message(data['when'])
-        await message.edit(embed=embed)
-        return
+    
     
     
     
@@ -539,8 +553,11 @@ async def on_message(message):
         curs.execute(query)
         for row in curs.fetchall():
             username, discriminator = row[0].split("#")
-            member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
-            member = await bot.fetch_user(member_id)
+            p = bot.get_all_members()
+            found_members = filter(lambda m: m.discriminator == discriminator, p)
+            member = discord.utils.get(found_members, name = username)
+            id = member.id
+            member = await bot.fetch_user(id)
             embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
         message = await ch.fetch_message(data[bs])
         await message.edit(embed=embed)
