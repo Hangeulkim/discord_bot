@@ -182,7 +182,6 @@ async def on_message(message):
             ed = ed + dt.timedelta(days=7)
         text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  :__:` '.format(st.month,st.day,ed.month,ed.day)
         embed = discord.Embed(title = text,color = 0xFF0000)
-        embed.set_thumbnail(url='https://cdn.discordapp.com/emojis/899685930347143178.png')
         message = await ch.fetch_message(data['when'])
         await message.edit(embed=embed)
         return
