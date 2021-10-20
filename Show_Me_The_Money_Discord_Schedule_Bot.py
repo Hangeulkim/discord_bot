@@ -42,7 +42,7 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=game)  
     print("Start Bot\n")
 
-async def show_boss(msg):
+def show_boss(msg):
     bosses = ['발', '발탄', '비', '비아키스', '비아', '쿠크세이튼', '쿠크', '아르고스', '알고', '아브렐슈드', '아브']
     bs=""
     for boss in bosses:
@@ -90,7 +90,7 @@ async def show_boss(msg):
     
     return bs, embed
     
-async def show_data(bs, embed):
+def show_data(bs, embed):
     ch = bot.get_channel(898561134783787028)
     query='SELECT AUTHOR, {} FROM NOW_RADE WHERE {} > 0'.format(bs,bs)
     data_db = pymysql.connect(
@@ -111,6 +111,8 @@ async def show_data(bs, embed):
         embed.set_image(url = member.avatar_url)
     message = await ch.fetch_message(data[bs])
     await message.edit(embed=embed)
+
+    return
 
 @tasks.loop(hours=1)
 async def chk_date():
@@ -323,7 +325,7 @@ async def on_message(message):
     print(message.content)
 
     
-    bs,embed = show_boss(message.content)
+    bs, embed = show_boss(message.content)
     if bs != "":
         string = message.content
         try:
