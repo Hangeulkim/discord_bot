@@ -8,7 +8,8 @@ import re
 import pymysql
 import time
 
-bot = commands.Bot(command_prefix='~')
+intents = discord.Intents().all()
+bot = commands.Bot(command_prefix='~', intents=intents)
 
 data={}
 data['when'] = 898830780682350622
@@ -114,11 +115,8 @@ async def chk_date():
             curs.execute(query)
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                p = bot.get_all_members()
-                found_members = filter(lambda m: m.discriminator == discriminator, p)
-                member = discord.utils.get(found_members, name = username)
-                id = member.id
-                member = await bot.fetch_user(id)
+                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -286,17 +284,10 @@ async def on_message(message):
 
             query='SELECT AUTHOR, {} FROM `WED` WHERE {} > 0'.format(bs,bs)
             curs.execute(query)
-            print(bot.get_all_members())
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                p = bot.get_all_members()
-                print(p)
-                found_members = filter(lambda m: m.discriminator == discriminator, p)
-                print(found_members)
-                member = discord.utils.get(found_members, name = username)
-                print(member)
-                id = member.id
-                member = await bot.fetch_user(id)
+                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -380,11 +371,8 @@ async def on_message(message):
             curs.execute(query)
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                p = bot.get_all_members()
-                found_members = filter(lambda m: m.discriminator == discriminator, p)
-                member = discord.utils.get(found_members, name = username)
-                id = member.id
-                member = await bot.fetch_user(id)
+                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -470,11 +458,8 @@ async def on_message(message):
             curs.execute(query)
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
-                p = bot.get_all_members()
-                found_members = filter(lambda m: m.discriminator == discriminator, p)
-                member = discord.utils.get(found_members, name = username)
-                id = member.id
-                member = await bot.fetch_user(id)
+                member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
+                member = await bot.fetch_user(member_id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
             message = await ch.fetch_message(data[bs])
             await message.edit(embed=embed)
@@ -556,11 +541,8 @@ async def on_message(message):
         curs.execute(query)
         for row in curs.fetchall():
             username, discriminator = row[0].split("#")
-            p = bot.get_all_members()
-            found_members = filter(lambda m: m.discriminator == discriminator, p)
-            member = discord.utils.get(found_members, name = username)
-            id = member.id
-            member = await bot.fetch_user(id)
+            member_id = discord.utils.get(bot.get_all_members(), name=username, discriminator=discriminator).id
+            member = await bot.fetch_user(member_id)
             embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
         message = await ch.fetch_message(data[bs])
         await message.edit(embed=embed)
