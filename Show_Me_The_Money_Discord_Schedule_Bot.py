@@ -290,8 +290,11 @@ async def on_message(message):
             for row in curs.fetchall():
                 username, discriminator = row[0].split("#")
                 p = bot.get_all_members()
+                print(p)
                 found_members = filter(lambda m: m.discriminator == discriminator, p)
+                print(found_members)
                 member = discord.utils.get(found_members, name = username)
+                print(member)
                 id = member.id
                 member = await bot.fetch_user(id)
                 embed.add_field(name=row[0],value=row[1],inline=True,icon_url=member.avatar_url)
