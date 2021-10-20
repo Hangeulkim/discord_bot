@@ -48,14 +48,11 @@ async def on_ready():
 async def chk_date():
     await bot.wait_until_ready()
     NOW_RADE = dt.datetime.now()+dt.timedelta(hours=7)
-    print(NOW_RADE.weekday())
-    print(NOW_RADE.hour)
     if NOW_RADE.weekday() == 2 and NOW_RADE.hour < 10 and NOW_RADE.hour > 6:
         ch = bot.get_channel(898561134783787028)
         
         st = dt.datetime(2021,10,6,10,0,0)
         ed = dt.datetime(2021,10,13,6,0,0)
-        NOW_RADE = dt.datetime.now()
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
