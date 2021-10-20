@@ -323,7 +323,7 @@ async def on_message(message):
     print(message.content)
 
     
-    bs,embed = show_boss(message.content,embed)
+    bs,embed = show_boss(message.content)
     if bs != "":
         string = message.content
         try:
