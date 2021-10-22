@@ -46,6 +46,7 @@ async def on_ready():
 def show_boss(msg):
     bosses = ['발', '발탄', '비', '비아키스', '비아', '쿠크세이튼', '쿠크', '아르고스', '알고', '아브렐슈드', '아브']
     bs=""
+    embed=""
     for boss in bosses:
         if boss in msg:   
             if boss == '발탄' or boss == '발':
@@ -124,8 +125,9 @@ async def chk_date():
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
-        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  `<:__:899685930347143178> '.format(st.month,st.day,ed.month,ed.day)
+        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  ` '.format(st.month,st.day,ed.month,ed.day)
         embed = discord.Embed(title = text,color = 0xFF0000)
+        embed.set_image(url = "https://cdn.discordapp.com/emojis/899685930347143178.png")
         message = await ch.fetch_message(data['when'])
         await message.edit(embed=embed)
 
@@ -180,8 +182,9 @@ async def on_message(message):
         while ed < NOW_RADE:
             st = st + dt.timedelta(days=7)
             ed = ed + dt.timedelta(days=7)
-        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  `<:__:899685930347143178> '.format(st.month,st.day,ed.month,ed.day)
+        text = ' `📢 {}월 / {}일 ~  {}월 / {}일 주간 레이드  ` '.format(st.month,st.day,ed.month,ed.day)
         embed = discord.Embed(title = text,color = 0xFF0000)
+        embed.set_image(url = "https://cdn.discordapp.com/emojis/899685930347143178.png")
         message = await ch.fetch_message(data['when'])
         await message.edit(embed=embed)
         return
@@ -205,7 +208,6 @@ async def on_message(message):
 
             a=curs.fetchone()[0]
             if a == 1:
-
                 query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,0,str(message.author))
                 curs.execute(query)
 
