@@ -186,7 +186,46 @@ async def on_message(message):
         await message.edit(embed=embed)
         return
 
-    if message.content == '~한남재훈':
+    if '올클' in message.content or '올클리어' in message.content:
+        data_db = pymysql.connect(
+            user=os.environ['USER_NAME'],
+            passwd=os.environ['USER_PASSWD'],
+            host=os.environ['USER_HOST'],
+            db=os.environ['USER_DB_NAME'],
+            autocommit=True
+        )
+        curs=data_db.cursor()
+        
+        bs=""
+        bs, embed = show_boss(message.content)
+
+        if bs != "":
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            curs.execute(query)
+
+            a=curs.fetchone()[0]
+            if a == 1:
+
+                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,0,str(message.author))
+                curs.execute(query)
+
+            else:
+                await message.channel.send(f'{message.author.mention}님 올클하실 캐릭터가 없습니다!')
+                return
+
+            await show_data(bs,embed)
+
+        else:
+            mes=['발노','발하','비노','비하','쿠크','알고','아브']
+            for ms in mes:
+                bs, embed = show_boss(ms)
+                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,0,str(message.author))
+                curs.execute(query)
+                await show_data(bs,embed)
+
+        return
+
+    if message.content == '~한남재훈' and message.author == "Hangeulkim#6287":
         await message.channel.send(f'{message.author.mention}님 께서 서버를 공격하고 계십니다!')
 
         data_db = pymysql.connect(
@@ -216,7 +255,7 @@ async def on_message(message):
 
         return
     
-    if message.content == '~초기화':
+    if message.content == '~초기화' and message.author == "Hangeulkim#6287":
         await message.channel.send(f'{message.author.mention}님 께서 서버를 해킹하고 계십니다')
 
         data_db = pymysql.connect(
