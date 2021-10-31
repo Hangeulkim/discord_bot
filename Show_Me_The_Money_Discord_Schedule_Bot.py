@@ -244,11 +244,11 @@ async def on_message(message):
 
         curs.execute('CREATE TABLE IF NOT EXISTS NOW_RADE (author text, bal_nor integer default 0, bal_hard integer default 0,\
         bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
-        arv_nor_1_2 integer default 0)')
+        arv_nor integer default 0)')
 
         curs.execute('CREATE TABLE IF NOT EXISTS WED (author text, bal_nor integer default 0, bal_hard integer default 0,\
         bia_nor integer default 0, bia_hard integer default 0, cook_nor integer default 0, argo integer default 0, \
-            arv_nor_1_2 integer default 0)')
+            arv_nor integer default 0)')
 
         mes=['발노','발하','비노','비하','쿠크','알고','아브']
         for ms in mes:
@@ -343,6 +343,8 @@ async def on_message(message):
                 query='INSERT INTO `WED`(AUTHOR, {}) VALUES ( \'{}\' , {} ) '.format(bs,str(message.author),num)
                 curs.execute(query)
 
+            curs.execute('ALTER TABLE WED CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
+
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
@@ -353,6 +355,7 @@ async def on_message(message):
                 query='INSERT INTO `NOW_RADE` ( AUTHOR, {} ) VALUES ( \'{}\' , {} )'.format(bs,str(message.author),num)
                 curs.execute(query)
 
+            curs.execute('ALTER TABLE NOW_RADE CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
 
             await show_data(bs,embed)
             
