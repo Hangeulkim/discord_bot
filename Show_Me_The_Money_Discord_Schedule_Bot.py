@@ -333,6 +333,9 @@ async def on_message(message):
                 autocommit=True
             )
             curs=data_db.cursor()
+            curs.execute('ALTER TABLE WED CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
+            curs.execute('ALTER TABLE NOW_RADE CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
+            
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\' ) '.format(str(message.author))
             curs.execute(query)
             a=curs.fetchone()[0]
@@ -343,7 +346,7 @@ async def on_message(message):
                 query='INSERT INTO `WED`(AUTHOR, {}) VALUES ( \'{}\' , {} ) '.format(bs,str(message.author),num)
                 curs.execute(query)
 
-            curs.execute('ALTER TABLE WED CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
+            
 
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
             curs.execute(query)
@@ -355,7 +358,7 @@ async def on_message(message):
                 query='INSERT INTO `NOW_RADE` ( AUTHOR, {} ) VALUES ( \'{}\' , {} )'.format(bs,str(message.author),num)
                 curs.execute(query)
 
-            curs.execute('ALTER TABLE NOW_RADE CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
+            
 
             await show_data(bs,embed)
             
