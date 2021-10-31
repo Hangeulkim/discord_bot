@@ -17,7 +17,7 @@ data['bia_nor'] = 898830919606099988
 data['bia_hard'] = 898830924240801802
 data['cook_nor'] = 898830931891195974
 data['argo'] = 898830944860004362
-data['arv_nor_1_2'] = 898830949540843541
+data['arv_nor'] = 898830949540843541
 arv_hard = 0
 
 @bot.event
@@ -86,8 +86,8 @@ def show_boss(msg):
                 embed.set_thumbnail(url='https://cdn.discordapp.com/emojis/898656741250699334.png')
 
             elif boss == '아브렐슈드' or boss == '아브':
-                bs='arv_nor_1_2'
-                embed = discord.Embed(title =' ` 👾 아브렐슈드 1 ~ 2페 👾 ` ',color = 0xFF0000)
+                bs='arv_nor'
+                embed = discord.Embed(title =' ` 👾 아브렐슈드 노말 👾 ` ',color = 0xFF0000)
                 embed.set_thumbnail(url='https://cdn.discordapp.com/emojis/898656299158483036.png')
     
     return bs, embed
