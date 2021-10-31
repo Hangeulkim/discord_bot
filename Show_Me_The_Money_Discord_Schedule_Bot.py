@@ -333,8 +333,6 @@ async def on_message(message):
                 autocommit=True
             )
             curs=data_db.cursor()
-            curs.execute('ALTER TABLE WED CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
-            curs.execute('ALTER TABLE NOW_RADE CHANGE ARV_NOR_1_2 ARV_NOR INTEGER')
             
             query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\' ) '.format(str(message.author))
             curs.execute(query)
