@@ -433,6 +433,7 @@ async def on_raw_reaction_add(payload):
         message = message.embeds[0].title
         print(message)
         user = payload.member
+        print(user)
         bs, embed = show_boss(message)
         if bs != "":
             data_db = pymysql.connect(
@@ -472,7 +473,9 @@ async def on_raw_reaction_remove(payload):
         message = await channel.fetch_message(payload.message_id)
         message = message.embeds[0].title
         print(message)
-        user = payload.member
+        guild = await bot.fetch_guild(payload.guild_id)
+        user = discord.utils.get(guild.members, id=payload.user_id)
+        print(user)
         bs, embed = show_boss(message)
         if bs != "":
             data_db = pymysql.connect(
