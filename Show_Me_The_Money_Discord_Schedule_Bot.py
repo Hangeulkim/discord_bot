@@ -423,7 +423,7 @@ async def on_message(message):
         return
 
 @bot.event
-async def on_raction_add(reaction, user):
+async def on_raw_reaction_add(reaction, user):
     if user.bot == 1:
         return None
     if str(reaction.emoji) == '<:__:899685930347143178>':
@@ -460,7 +460,7 @@ async def on_raction_add(reaction, user):
         return
 
 @bot.event
-async def on_raction_remove(reaction, user):
+async def on_raw_reaction_remove(reaction, user):
     if user.bot == 1:
         return None
     if str(reaction.emoji) == '<:__:899685930347143178>':
