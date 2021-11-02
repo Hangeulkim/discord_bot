@@ -172,6 +172,23 @@ async def on_message(message):
     await message.delete()
     await asyncio.sleep(0.3)
     
+    if message.content == '~반응추가':
+        ch = bot.get_channel(898561134783787028)
+        mes=['발노','발하','비노','비하','쿠크','알고','아브']
+        for ms in mes:
+            data_db = pymysql.connect(
+            user=os.environ['USER_NAME'],
+            passwd=os.environ['USER_PASSWD'],
+            host=os.environ['USER_HOST'],
+            db=os.environ['USER_DB_NAME'],
+            autocommit=True
+        )
+        curs=data_db.cursor()
+
+        bs, embed = show_boss(ms)
+        message = await ch.fetch_message(data[bs])
+        await message.add_reaction("<:__:899685930347143178>")
+
 
     if message.content == '~날짜':
         ch = bot.get_channel(898561134783787028)
@@ -401,6 +418,88 @@ async def on_message(message):
     else:
         await message.channel.send("초기, 완료 | 발노,발하 등등 | 0~9 숫자없으면 자동으로 1")
         await message.channel.send("~ | 발탄, 비아키스, 비아, 쿠크세이튼, 쿠크, 아르고스, 알고, 아브렐슈드, 아브 | 노말, 하드 | [1~9]")
+        return
+
+@bot.event
+async def on_raction_add(reaction, user):
+    if user.bot == 1:
+        return None
+    if str(reaction.emoji) == '<:__:899685930347143178>':
+        bs, embed = show_boss(reaction.emoji)
+        if bs != "":
+            string = reaction.message.content
+            try:
+                num = int(re.sub(r'[^0-9]', '', string))
+            except:
+                num = 1
+            data_db = pymysql.connect(
+                user=os.environ['USER_NAME'],
+                passwd=os.environ['USER_PASSWD'],
+                host=os.environ['USER_HOST'],
+                db=os.environ['USER_DB_NAME'],
+                autocommit=True
+            )
+            curs=data_db.cursor()
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(user))
+            curs.execute(query)
+
+            a=curs.fetchone()[0]
+            if a == 1:
+                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(reaction.message.author))
+                curs.execute(query)
+                every_num = curs.fetchone()[0]
+                print(every_num)
+                num = int(every_num)-1
+                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(reaction.message.author))
+                curs.execute(query)
+            else:
+                await reaction.message.channel.send(f'{reaction.message.author.mention}님 완료하실 캐릭터가 없습니다!')
+                return
+
+
+            await show_data(bs,embed)
+
+        return
+
+@bot.event
+async def on_raction_remove(reaction, user):
+    if user.bot == 1:
+        return None
+    if str(reaction.emoji) == '<:__:899685930347143178>':
+        bs, embed = show_boss(reaction.emoji)
+        if bs != "":
+            string = reaction.message.content
+            try:
+                num = int(re.sub(r'[^0-9]', '', string))
+            except:
+                num = 1
+            data_db = pymysql.connect(
+                user=os.environ['USER_NAME'],
+                passwd=os.environ['USER_PASSWD'],
+                host=os.environ['USER_HOST'],
+                db=os.environ['USER_DB_NAME'],
+                autocommit=True
+            )
+            curs=data_db.cursor()
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(user))
+            curs.execute(query)
+
+            a=curs.fetchone()[0]
+            if a == 1:
+                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(reaction.message.author))
+                curs.execute(query)
+                every_num = curs.fetchone()[0]
+                print(every_num)
+                num = int(every_num)-1
+                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(reaction.message.author))
+                curs.execute(query)
+            else:
+                await reaction.message.channel.send(f'{reaction.message.author.mention}님 완료하실 캐릭터가 없습니다!')
+                return
+
+
+            await show_data(bs,embed)
+
         return
 
 if __name__ == "__main__":
