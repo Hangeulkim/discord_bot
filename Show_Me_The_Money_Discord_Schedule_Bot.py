@@ -427,13 +427,9 @@ async def on_raction_add(reaction, user):
     if user.bot == 1:
         return None
     if str(reaction.emoji) == '<:__:899685930347143178>':
-        bs, embed = show_boss(reaction.emoji)
+        print(reaction.message.content)
+        bs, embed = show_boss(reaction.message.content)
         if bs != "":
-            string = reaction.message.content
-            try:
-                num = int(re.sub(r'[^0-9]', '', string))
-            except:
-                num = 1
             data_db = pymysql.connect(
                 user=os.environ['USER_NAME'],
                 passwd=os.environ['USER_PASSWD'],
