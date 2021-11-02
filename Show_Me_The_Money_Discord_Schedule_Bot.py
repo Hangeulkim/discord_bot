@@ -474,7 +474,7 @@ async def on_raw_reaction_remove(payload):
         message = message.embeds[0].title
         print(message)
         guild = await bot.fetch_guild(payload.guild_id)
-        user = discord.utils.get(guild.members, id=payload.user_id)
+        user = await guild.fetch_member(payload.user_id)
         print(user)
         bs, embed = show_boss(message)
         if bs != "":
