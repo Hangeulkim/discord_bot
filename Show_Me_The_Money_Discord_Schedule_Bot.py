@@ -182,12 +182,14 @@ async def on_message(message):
             host=os.environ['USER_HOST'],
             db=os.environ['USER_DB_NAME'],
             autocommit=True
-        )
-        curs=data_db.cursor()
+            )
+            curs=data_db.cursor()
 
-        bs, embed = show_boss(ms)
-        message = await ch.fetch_message(data[bs])
-        await message.add_reaction("<:__:899685930347143178>")
+            bs, embed = show_boss(ms)
+            message = await ch.fetch_message(data[bs])
+            await message.add_reaction("<:__:899685930347143178>")
+
+        return
 
 
     if message.content == '~날짜':
