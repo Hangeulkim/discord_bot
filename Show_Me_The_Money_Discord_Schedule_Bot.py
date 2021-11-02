@@ -454,6 +454,11 @@ async def on_raw_reaction_add(payload):
                 every_num = curs.fetchone()[0]
                 print(every_num)
                 num = int(every_num)-1
+                if num < 0:
+                    num = 0
+                    ch = bot.get_channel(ch_katalk)
+                    await ch.send(f'{user.mention}님 완료하실 캐릭터가 없습니다!')
+                    return
                 query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(user))
                 curs.execute(query)
             else:
@@ -496,6 +501,11 @@ async def on_raw_reaction_remove(payload):
                 every_num = curs.fetchone()[0]
                 print(every_num)
                 num = int(every_num)-1
+                if num < 0:
+                    num = 0
+                    ch = bot.get_channel(ch_katalk)
+                    await ch.send(f'{user.mention}님 완료하실 캐릭터가 없습니다!')
+                    return
                 query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(user))
                 curs.execute(query)
             else:
