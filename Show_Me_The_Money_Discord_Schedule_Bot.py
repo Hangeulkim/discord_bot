@@ -428,7 +428,9 @@ async def on_message(message):
 @bot.event
 async def on_raw_reaction_add(payload):
     if str(payload.emoji) == '<:__:899685930347143178>':
-        message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id).embeds[0].description
+        channel = bot.get_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        message = message.embeds[0].title
         print(message)
         user = payload.member
         bs, embed = show_boss(message)
@@ -466,7 +468,9 @@ async def on_raw_reaction_add(payload):
 @bot.event
 async def on_raw_reaction_add(payload):
     if str(payload.emoji) == '<:__:899685930347143178>':
-        message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id).embeds[0].description
+        channel = bot.get_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        message = message.embeds[0].title
         print(message)
         user = payload.member
         bs, embed = show_boss(message)
