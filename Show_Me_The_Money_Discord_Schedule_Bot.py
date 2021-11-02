@@ -466,7 +466,7 @@ async def on_raw_reaction_add(payload):
         return
 
 @bot.event
-async def on_raw_reaction_add(payload):
+async def on_raw_reaction_remove(payload):
     if str(payload.emoji) == '<:__:899685930347143178>':
         channel = bot.get_channel(payload.channel_id)
         message = await channel.fetch_message(payload.message_id)
