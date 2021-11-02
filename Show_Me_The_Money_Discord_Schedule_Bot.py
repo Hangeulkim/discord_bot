@@ -424,8 +424,6 @@ async def on_message(message):
 
 @bot.event
 async def on_raw_reaction_add(reaction):
-    if user.bot == 1:
-        return None
     if str(reaction.emoji) == '<:__:899685930347143178>':
         print(reaction.message.content)
         bs, embed = show_boss(reaction.message.content)
@@ -461,8 +459,6 @@ async def on_raw_reaction_add(reaction):
 
 @bot.event
 async def on_raw_reaction_remove(reaction):
-    if user.bot == 1:
-        return None
     if str(reaction.emoji) == '<:__:899685930347143178>':
         print(reaction.message.content)
         bs, embed = show_boss(reaction.message.content)
