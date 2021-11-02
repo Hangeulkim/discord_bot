@@ -423,7 +423,7 @@ async def on_message(message):
         return
 
 @bot.event
-async def on_raw_reaction_add(reaction, user):
+async def on_raw_reaction_add(reaction):
     if user.bot == 1:
         return None
     if str(reaction.emoji) == '<:__:899685930347143178>':
@@ -438,7 +438,7 @@ async def on_raw_reaction_add(reaction, user):
                 autocommit=True
             )
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(user))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(reaction.message.author))
             curs.execute(query)
 
             a=curs.fetchone()[0]
@@ -460,7 +460,7 @@ async def on_raw_reaction_add(reaction, user):
         return
 
 @bot.event
-async def on_raw_reaction_remove(reaction, user):
+async def on_raw_reaction_remove(reaction):
     if user.bot == 1:
         return None
     if str(reaction.emoji) == '<:__:899685930347143178>':
@@ -475,7 +475,7 @@ async def on_raw_reaction_remove(reaction, user):
                 autocommit=True
             )
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(user))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(reaction.message.author))
             curs.execute(query)
 
             a=curs.fetchone()[0]
