@@ -18,6 +18,7 @@ data['bia_hard'] = 898830924240801802
 data['cook_nor'] = 898830931891195974
 data['argo'] = 898830944860004362
 data['arv_nor'] = 898830949540843541
+ch_katalk = 336431574981541888
 arv_hard = 0
 
 @bot.event
@@ -327,7 +328,8 @@ async def on_message(message):
                 query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(message.author))
                 curs.execute(query)
             else:
-                await message.channel.send(f'{message.author.mention}님 완료하실 캐릭터가 없습니다!')
+                ch = bot.get_channel(ch_katalk)
+                await ch.send(f'{message.author.mention}님 완료하실 캐릭터가 없습니다!')
                 return
 
 
@@ -418,15 +420,18 @@ async def on_message(message):
 
         
     else:
-        await message.channel.send("초기, 완료 | 발노,발하 등등 | 0~9 숫자없으면 자동으로 1")
-        await message.channel.send("~ | 발탄, 비아키스, 비아, 쿠크세이튼, 쿠크, 아르고스, 알고, 아브렐슈드, 아브 | 노말, 하드 | [1~9]")
+        ch = bot.get_channel(ch_katalk)
+        await ch.send("초기, 완료 | 발노,발하 등등 | 0~9 숫자없으면 자동으로 1")
+        await ch.send("~ | 발탄, 비아키스, 비아, 쿠크세이튼, 쿠크, 아르고스, 알고, 아브렐슈드, 아브 | 노말, 하드 | [1~9]")
         return
 
 @bot.event
-async def on_raw_reaction_add(reaction):
-    if str(reaction.emoji) == '<:__:899685930347143178>':
-        print(reaction.message.content)
-        bs, embed = show_boss(reaction.message.content)
+async def on_raw_reaction_add(payload):
+    if str(payload.emoji) == '<:__:899685930347143178>':
+        message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
+        print(message)
+        user = payload.member
+        bs, embed = show_boss(message)
         if bs != "":
             data_db = pymysql.connect(
                 user=os.environ['USER_NAME'],
@@ -436,20 +441,21 @@ async def on_raw_reaction_add(reaction):
                 autocommit=True
             )
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(reaction.message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(user))
             curs.execute(query)
 
             a=curs.fetchone()[0]
             if a == 1:
-                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(reaction.message.author))
+                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(user))
                 curs.execute(query)
                 every_num = curs.fetchone()[0]
                 print(every_num)
                 num = int(every_num)-1
-                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(reaction.message.author))
+                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(user))
                 curs.execute(query)
             else:
-                await reaction.message.channel.send(f'{reaction.message.author.mention}님 완료하실 캐릭터가 없습니다!')
+                ch = bot.get_channel(ch_katalk)
+                await ch.send(f'{user.mention}님 완료하실 캐릭터가 없습니다!')
                 return
 
 
@@ -458,10 +464,12 @@ async def on_raw_reaction_add(reaction):
         return
 
 @bot.event
-async def on_raw_reaction_remove(reaction):
-    if str(reaction.emoji) == '<:__:899685930347143178>':
-        print(reaction.message.content)
-        bs, embed = show_boss(reaction.message.content)
+async def on_raw_reaction_add(payload):
+    if str(payload.emoji) == '<:__:899685930347143178>':
+        message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
+        print(message)
+        user = payload.member
+        bs, embed = show_boss(message)
         if bs != "":
             data_db = pymysql.connect(
                 user=os.environ['USER_NAME'],
@@ -471,20 +479,21 @@ async def on_raw_reaction_remove(reaction):
                 autocommit=True
             )
             curs=data_db.cursor()
-            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(reaction.message.author))
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(user))
             curs.execute(query)
 
             a=curs.fetchone()[0]
             if a == 1:
-                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(reaction.message.author))
+                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(user))
                 curs.execute(query)
                 every_num = curs.fetchone()[0]
                 print(every_num)
                 num = int(every_num)-1
-                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(reaction.message.author))
+                query='UPDATE `NOW_RADE` SET {} = {} WHERE `AUTHOR` = \'{}\''.format(bs,num,str(user))
                 curs.execute(query)
             else:
-                await reaction.message.channel.send(f'{reaction.message.author.mention}님 완료하실 캐릭터가 없습니다!')
+                ch = bot.get_channel(ch_katalk)
+                await ch.send(f'{user.mention}님 완료하실 캐릭터가 없습니다!')
                 return
 
 
