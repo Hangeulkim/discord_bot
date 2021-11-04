@@ -189,7 +189,7 @@ async def on_message(message):
             bs, embed = show_boss(ms)
             message = await ch.fetch_message(data[bs])
             await message.add_reaction("<:__:899685930347143178>")
-            await message.add_reaction("<:hannam:905793572064882758>")
+            await message.add_reaction("<:hannam_plz:905801270516932631>")
 
         return
 
@@ -475,7 +475,7 @@ async def on_raw_reaction_add(payload):
             await show_data(bs,embed)
         return
 
-    if str(payload.emoji) == '<:hannam:905793572064882758>':
+    if str(payload.emoji) == '<:hannam_plz:905801270516932631>':
         bs, embed = show_boss(message)     
         if bs != "":      
             data_db = pymysql.connect(
@@ -571,7 +571,7 @@ async def on_raw_reaction_remove(payload):
 
         return
 
-    if str(payload.emoji) == '<:hannam:905793572064882758>':
+    if str(payload.emoji) == '<:hannam_plz:905801270516932631>':
         bs, embed = show_boss(message)     
         if bs != "":      
             data_db = pymysql.connect(
