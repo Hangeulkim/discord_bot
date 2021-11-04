@@ -189,6 +189,7 @@ async def on_message(message):
             bs, embed = show_boss(ms)
             message = await ch.fetch_message(data[bs])
             await message.add_reaction("<:__:899685930347143178>")
+            await message.add_reaction("<:hannam:905793572064882758>")
 
         return
 
@@ -468,7 +469,57 @@ async def on_raw_reaction_add(payload):
 
 
             await show_data(bs,embed)
+        return
 
+    if str(payload.emoji) == '<:hannam:905793572064882758>':
+        channel = bot.get_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        message = message.embeds[0].title
+        print(message)
+        user = payload.member
+        print(user)
+        bs, embed = show_boss(message)     
+        if bs != "":      
+            data_db = pymysql.connect(
+                user=os.environ['USER_NAME'],
+                passwd=os.environ['USER_PASSWD'],
+                host=os.environ['USER_HOST'],
+                db=os.environ['USER_DB_NAME'],
+                autocommit=True
+            )
+            curs=data_db.cursor()
+            
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\' ) '.format(str(message.author))
+            curs.execute(query)
+            a=curs.fetchone()[0]
+            if a == 1:
+                query = 'SELECT {} FROM `WED` WHERE AUTHOR = \'{}\''.format(bs,str(user))
+                curs.execute(query)
+                num = curs.fetchone()[0]+1
+                query='UPDATE `WED` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
+                curs.execute(query)
+            else:
+                query='INSERT INTO `WED`(AUTHOR, {}) VALUES ( \'{}\' , {} ) '.format(bs,str(message.author),num)
+                curs.execute(query)
+
+            
+
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            curs.execute(query)
+            a=curs.fetchone()[0]
+            if a == 1:
+                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(user))
+                curs.execute(query)
+                num = curs.fetchone()[0]+1
+                query='UPDATE `NOW_RADE` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
+                curs.execute(query)
+            else:
+                query='INSERT INTO `NOW_RADE` ( AUTHOR, {} ) VALUES ( \'{}\' , {} )'.format(bs,str(message.author),num)
+                curs.execute(query)
+
+            
+
+            await show_data(bs,embed)
         return
 
 @bot.event
@@ -516,6 +567,57 @@ async def on_raw_reaction_remove(payload):
 
             await show_data(bs,embed)
 
+        return
+
+    if str(payload.emoji) == '<:hannam:905793572064882758>':
+        channel = bot.get_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        message = message.embeds[0].title
+        print(message)
+        user = payload.member
+        print(user)
+        bs, embed = show_boss(message)     
+        if bs != "":      
+            data_db = pymysql.connect(
+                user=os.environ['USER_NAME'],
+                passwd=os.environ['USER_PASSWD'],
+                host=os.environ['USER_HOST'],
+                db=os.environ['USER_DB_NAME'],
+                autocommit=True
+            )
+            curs=data_db.cursor()
+            
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `WED` WHERE `AUTHOR` = \'{}\' ) '.format(str(message.author))
+            curs.execute(query)
+            a=curs.fetchone()[0]
+            if a == 1:
+                query = 'SELECT {} FROM `WED` WHERE AUTHOR = \'{}\''.format(bs,str(user))
+                curs.execute(query)
+                num = curs.fetchone()[0]+1
+                query='UPDATE `WED` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
+                curs.execute(query)
+            else:
+                query='INSERT INTO `WED`(AUTHOR, {}) VALUES ( \'{}\' , {} ) '.format(bs,str(message.author),num)
+                curs.execute(query)
+
+            
+
+            query = 'SELECT EXISTS(SELECT AUTHOR FROM `NOW_RADE` WHERE `AUTHOR` = \'{}\')'.format(str(message.author))
+            curs.execute(query)
+            a=curs.fetchone()[0]
+            if a == 1:
+                query = 'SELECT {} FROM `NOW_RADE` WHERE AUTHOR = \'{}\''.format(bs,str(user))
+                curs.execute(query)
+                num = curs.fetchone()[0]+1
+                query='UPDATE `NOW_RADE` SET {} = \'{}\' WHERE AUTHOR = \'{}\''.format(bs,num,str(message.author))
+                curs.execute(query)
+            else:
+                query='INSERT INTO `NOW_RADE` ( AUTHOR, {} ) VALUES ( \'{}\' , {} )'.format(bs,str(message.author),num)
+                curs.execute(query)
+
+            
+
+            await show_data(bs,embed)
         return
 
 if __name__ == "__main__":
