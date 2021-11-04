@@ -428,13 +428,17 @@ async def on_message(message):
 
 @bot.event
 async def on_raw_reaction_add(payload):
+    channel = bot.get_channel(payload.channel_id)
+    message = await channel.fetch_message(payload.message_id)
+    message = message.embeds[0].title
+    print(message)
+    user = payload.member
+    print(user)
+
+    if user == '한남재훈#8305':
+        return
+        
     if str(payload.emoji) == '<:__:899685930347143178>':
-        channel = bot.get_channel(payload.channel_id)
-        message = await channel.fetch_message(payload.message_id)
-        message = message.embeds[0].title
-        print(message)
-        user = payload.member
-        print(user)
         bs, embed = show_boss(message)
         if bs != "":
             data_db = pymysql.connect(
@@ -472,13 +476,6 @@ async def on_raw_reaction_add(payload):
         return
 
     if str(payload.emoji) == '<:hannam:905793572064882758>':
-        channel = bot.get_channel(payload.channel_id)
-        message = await channel.fetch_message(payload.message_id)
-        message = message.embeds[0].title
-        print(message)
-        guild = await bot.fetch_guild(payload.guild_id)
-        user = await guild.fetch_member(payload.user_id)
-        print(user)
         bs, embed = show_boss(message)     
         if bs != "":      
             data_db = pymysql.connect(
@@ -525,14 +522,18 @@ async def on_raw_reaction_add(payload):
 
 @bot.event
 async def on_raw_reaction_remove(payload):
+    channel = bot.get_channel(payload.channel_id)
+    message = await channel.fetch_message(payload.message_id)
+    message = message.embeds[0].title
+    print(message)
+    guild = await bot.fetch_guild(payload.guild_id)
+    user = await guild.fetch_member(payload.user_id)
+    print(user)
+
+    if user == '한남재훈#8305':
+        return
+
     if str(payload.emoji) == '<:__:899685930347143178>':
-        channel = bot.get_channel(payload.channel_id)
-        message = await channel.fetch_message(payload.message_id)
-        message = message.embeds[0].title
-        print(message)
-        guild = await bot.fetch_guild(payload.guild_id)
-        user = await guild.fetch_member(payload.user_id)
-        print(user)
         bs, embed = show_boss(message)
         if bs != "":
             data_db = pymysql.connect(
@@ -571,13 +572,6 @@ async def on_raw_reaction_remove(payload):
         return
 
     if str(payload.emoji) == '<:hannam:905793572064882758>':
-        channel = bot.get_channel(payload.channel_id)
-        message = await channel.fetch_message(payload.message_id)
-        message = message.embeds[0].title
-        print(message)
-        guild = await bot.fetch_guild(payload.guild_id)
-        user = await guild.fetch_member(payload.user_id)
-        print(user)
         bs, embed = show_boss(message)     
         if bs != "":      
             data_db = pymysql.connect(
