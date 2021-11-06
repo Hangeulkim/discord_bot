@@ -435,7 +435,7 @@ async def on_raw_reaction_add(payload):
     user = payload.member
     print(user)
 
-    if user == '한남재훈#8305':
+    if user.bot:
         return
         
     if str(payload.emoji) == '<:__:899685930347143178>':
@@ -530,7 +530,7 @@ async def on_raw_reaction_remove(payload):
     user = await guild.fetch_member(payload.user_id)
     print(user)
 
-    if user == '한남재훈#8305':
+    if user.bot:
         return
 
     if str(payload.emoji) == '<:__:899685930347143178>':
